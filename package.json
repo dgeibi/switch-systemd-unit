@@ -1,6 +1,6 @@
 {
   "name": "switch-systemd-unit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a cli tool for switching systemd unit quickly",
   "main": "lib/index.js",
   "scripts": {
@@ -41,5 +41,17 @@
   "os": ["linux"],
   "engines": {
     "node": ">=8.0.0"
-  }
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dgeibi/switch-systemd-unit.git"
+  },
+  "keywords": ["systemd"],
+  "bugs": {
+    "url": "https://github.com/dgeibi/switch-systemd-unit/issues"
+  },
+  "homepage": "https://github.com/dgeibi/switch-systemd-unit#readme"
 }
