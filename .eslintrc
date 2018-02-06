@@ -1,0 +1,7 @@
+{
+  "extends": ["dgeibi/preact"],
+  "rules": {
+    "no-console": "off",
+    "prefer-destructuring": "off"
+  }
+}

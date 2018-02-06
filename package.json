@@ -1,0 +1,45 @@
+{
+  "name": "switch-systemd-unit",
+  "version": "1.0.0",
+  "description": "a cli tool for switching systemd unit quickly",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "rm -rf lib && babel src -d lib",
+    "format": "prettier --write ./src/*.js",
+    "lint": "eslint .",
+    "precommit": "lint-staged"
+  },
+  "bin": {
+    "switch-unit": "./lib/index.js"
+  },
+  "lint-staged": {
+    "*.js": ["prettier --write", "eslint", "git add"],
+    "*.{json,md}": ["prettier --write", "git add"],
+    ".*rc": ["prettier --write", "git add"]
+  },
+  "author": "dgeibi",
+  "license": "ISC",
+  "dependencies": {
+    "ink": "^0.4.1",
+    "ink-select-input": "^1.0.0",
+    "mri": "^1.1.0"
+  },
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "lint-staged": "^6.1.0",
+    "@babel/cli": "^7.0.0-beta.39",
+    "@babel/core": "^7.0.0-beta.39",
+    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.39",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.39",
+    "@babel/plugin-transform-modules-commonjs": "^7.0.0-beta.39",
+    "@babel/plugin-transform-react-jsx": "^7.0.0-beta.39",
+    "eslint": "^4.17.0",
+    "eslint-config-dgeibi": "^4.1.0",
+    "prettier": "^1.10.2"
+  },
+  "files": ["lib/"],
+  "os": ["linux"],
+  "engines": {
+    "node": ">=8.0.0"
+  }
+}
