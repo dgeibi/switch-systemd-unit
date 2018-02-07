@@ -86,7 +86,7 @@ function main({ template, extname, dir }) {
             </div>
           ))}
           <SwitchUnit setStates={setStates} states={states} />
-          {outputs &&
+          {Array.isArray(outputs) &&
             outputs.map(({ type, out }, i) => (
               <Text green={type === 'stdout'} red={type === 'stderr'} key={i}>
                 {out}

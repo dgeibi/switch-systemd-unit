@@ -1,21 +1,21 @@
 import * as systemctl from './systemctl'
 
-export const isEnabled = unit =>
+export const isEnabledSync = unit =>
   systemctl
-    .isEnabled(unit)
+    .isEnabledSync(unit)
     .stdout.toString()
     .trim() === 'enabled'
 
-export const isActive = unit =>
+export const isActiveSync = unit =>
   systemctl
-    .isActive(unit)
+    .isActiveSync(unit)
     .stdout.toString()
     .trim() === 'active'
 
 export default function getState(unit) {
   return {
     unit,
-    enabled: isEnabled(unit),
-    active: isActive(unit),
+    enabled: isEnabledSync(unit),
+    active: isActiveSync(unit),
   }
 }

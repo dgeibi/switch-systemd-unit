@@ -4,6 +4,7 @@ import getStates from './getStates'
 export default class Provider extends Component {
   state = {
     states: this.fetchStates(),
+    outputs: null,
   }
 
   render() {

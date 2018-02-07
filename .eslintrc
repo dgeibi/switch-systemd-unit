@@ -2,6 +2,8 @@
   "extends": ["dgeibi/preact"],
   "rules": {
     "no-console": "off",
-    "prefer-destructuring": "off"
+    "prefer-destructuring": "off",
+    "no-restricted-syntax": "off",
+    "no-await-in-loop": "off"
   }
 }

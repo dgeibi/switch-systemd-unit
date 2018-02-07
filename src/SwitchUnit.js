@@ -4,24 +4,31 @@ import * as systemctl from './systemctl'
 
 const DISABLE_ALL = Symbol.for('disable-all')
 
-function disableAll(states) {
+async function disableAll(states) {
   const outputs = []
-  states.forEach(({ unit, enabled, active }) => {
+  for (const { unit, enabled, active } of states) {
     if (enabled) {
-      collectOutputs(outputs, systemctl.disable(unit))
+      await collectOutputs(outputs, systemctl.disable(unit))
     }
     if (active) {
-      collectOutputs(outputs, systemctl.stop(unit))
+      await collectOutputs(outputs, systemctl.stop(unit))
     }
-  })
+  }
   return outputs
 }
 
-function collectOutputs(outputs, cp) {
-  if (cp.status === 0) {
-    outputs.push({ type: 'stdout', out: String(cp.stderr) })
+async function collectOutputs(outputs, promise) {
+  const { status, stderr, stdout } = await promise
+  if (status === 0) {
+    const out = String(stdout || stderr)
+    if (out) {
+      outputs.push({ type: 'stdout', out })
+    }
   } else {
-    outputs.push({ type: 'stderr', out: String(cp.stderr) })
+    const out = String(stderr || stdout)
+    if (out) {
+      outputs.push({ type: 'stderr', out })
+    }
   }
 }
 
@@ -31,12 +38,12 @@ export default function SwitchUnit({ states, setStates }) {
     ...states.filter(x => !x.active).map(({ unit }) => ({ label: unit, value: unit })),
   ]
 
-  const handleSelect = ({ value }) => {
-    const outputs = disableAll(states)
+  const handleSelect = async ({ value }) => {
+    const outputs = await disableAll(states)
 
     if (value !== DISABLE_ALL) {
-      collectOutputs(outputs, systemctl.start(value))
-      collectOutputs(outputs, systemctl.enable(value))
+      await collectOutputs(outputs, systemctl.start(value))
+      await collectOutputs(outputs, systemctl.enable(value))
     }
 
     setStates(outputs)
